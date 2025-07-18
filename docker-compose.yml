@@ -1,0 +1,52 @@
+version: '3.8'
+name: nodelabs_interview
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nodelabs_interview_app
+    ports:
+      - "3000:80"
+    env_file:
+      - .env.docker
+    depends_on:
+      - mongo
+      - redis
+      - rabbitmq
+
+  mongo:
+    image: mongo:latest
+    container_name: nodelabs_interview_mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  redis:
+    image: redis:latest
+    container_name: nodelabs_interview_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: nodelabs_interview_rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672" # Management UI
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+
+networks:
+    nodelabs_network:
+        external: true
+        name: nodelabs_network
+
+volumes:
+  mongo_data:
+  redis_data:
+  rabbitmq_data:
