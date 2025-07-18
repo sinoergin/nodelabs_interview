@@ -1,37 +1,38 @@
 {
-  "name": "nodelabs_interview",
-  "version": "1.0.0",
-  "description": "Real-Time Messaging System Backend with Node.js, Express, and MongoDB",
-  "main": "src/server.js",
-  "type": "module",
-  "scripts": {
-    "start": "node src/server.js",
-    "dev": "nodemon src/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "prepare": "husky"
-  },
-  "dependencies": {
-    "amqplib": "^0.10.8",
-    "bcrypt": "^6.0.0",
-    "dotenv": "^17.2.0",
-    "express": "^5.1.0",
-    "express-rate-limit": "^8.0.1",
-    "helmet": "^8.1.0",
-    "joi": "^17.13.3",
-    "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.16.4",
-    "node-cron": "^4.2.1",
-    "redis": "^5.6.0",
-    "socket.io": "^4.8.1",
-    "swagger-ui-express": "^5.0.1",
-    "winston": "^3.17.0"
-  },
-  "devDependencies": {
-    "husky": "^9.1.7",
-    "nodemon": "^3.1.10",
-    "prettier": "^3.6.2"
-  },
-  "lint-staged": {
-    "**/*": "prettier --write --ignore-unknown"
-  }
+    "name": "nodelabs_interview",
+    "version": "1.0.0",
+    "description": "Real-Time Messaging System Backend with Node.js, Express, and MongoDB",
+    "main": "src/server.js",
+    "type": "module",
+    "scripts": {
+        "start": "node src/server.js",
+        "dev": "nodemon src/server.js",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "prepare": "husky"
+    },
+    "dependencies": {
+        "amqplib": "^0.10.8",
+        "bcrypt": "^6.0.0",
+        "dotenv": "^17.2.0",
+        "express": "^5.1.0",
+        "express-rate-limit": "^8.0.1",
+        "helmet": "^8.1.0",
+        "joi": "^17.13.3",
+        "jsonwebtoken": "^9.0.2",
+        "lint-staged": "^16.1.2",
+        "mongoose": "^8.16.4",
+        "node-cron": "^4.2.1",
+        "redis": "^5.6.0",
+        "socket.io": "^4.8.1",
+        "swagger-ui-express": "^5.0.1",
+        "winston": "^3.17.0"
+    },
+    "devDependencies": {
+        "husky": "^9.1.7",
+        "nodemon": "^3.1.10",
+        "prettier": "^3.6.2"
+    },
+    "lint-staged": {
+        "**/*": "prettier --write --ignore-unknown"
+    }
 }
