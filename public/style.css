@@ -1,0 +1,368 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    /* height: 100vh; */ /* Removed fixed height */
+    /* align-items: center; */ /* Removed vertical centering */
+}
+
+#auth-container,
+#chat-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    margin: 20px auto;
+}
+
+#chat-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 900px;
+    /* height: 600px; */ /* Removed fixed height */
+    padding: 0;
+    /* overflow: hidden; */ /* Removed overflow hidden */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    min-height: 600px; /* Add a minimum height to ensure it's not too small */
+}
+
+#chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px; /* Add padding to header */
+    border-bottom: 1px solid #eee;
+}
+
+#chat-header h2 {
+    margin: 0;
+}
+
+#chat-header div {
+    display: flex;
+    gap: 10px; /* Space between buttons */
+}
+
+#chat-header div button {
+    width: 120px; /* Set a fixed width */
+    padding: 8px 10px; /* Adjust padding to control height */
+    font-size: 14px;
+}
+
+#chat-main {
+    display: flex;
+    flex-grow: 1; /* Allow chat-main to take available space */
+}
+
+#conversations-sidebar {
+    width: 250px; /* Fixed width for the sidebar */
+    background-color: #f0f2f5;
+    padding: 20px; /* Add padding to sidebar */
+    border-right: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+}
+
+#conversations-sidebar h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+#conversations-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto; /* Scroll for conversation list */
+    flex-grow: 1;
+}
+
+#conversations-list li {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+    display: flex; /* Use flexbox for alignment */
+    justify-content: space-between; /* Space out content and icon */
+    align-items: center; /* Vertically align items */
+}
+
+#conversations-list li:hover {
+    background-color: #e9e9e9;
+}
+
+.conversation-text {
+    flex-grow: 1; /* Allow text to take available space */
+    margin-right: 10px; /* Add some space between text and icon */
+}
+
+.delete-conversation-icon {
+    cursor: pointer;
+    flex-shrink: 0; /* Prevent icon from shrinking */
+    color: #dc3545; /* Red color for the trash icon */
+    font-size: 1.2em;
+}
+
+.delete-conversation-icon:hover {
+    color: #c82333; /* Darker red on hover */
+}
+
+#chat-main-content {
+    flex-grow: 1; /* Takes remaining space */
+    display: flex;
+    flex-direction: column;
+    padding: 20px; /* Add padding to main content area */
+}
+
+#conversation-search {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally when stacked vertically */
+    justify-content: center; /* Center items vertically if there's extra space */
+    gap: 10px; /* Space between elements */
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+#conversation-search p {
+    margin: 0;
+    text-align: center;
+    max-width: 100%; /* Ensure it doesn't overflow */
+}
+
+#find-conversation-buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    gap: 10px; /* Space between buttons */
+}
+
+#find-conversation-buttons button {
+    width: auto; /* Override default full width button style */
+    padding: 8px 15px;
+    font-size: 14px;
+    margin: 0; /* Remove individual button margins */
+}
+
+#conversation-area {
+    flex-grow: 1; /* Main chat area takes remaining space */
+    display: flex;
+    flex-direction: column;
+}
+
+#conversation-area-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+#conversation-area-header h3 {
+    margin: 0;
+}
+
+#messages {
+    border: 1px solid #eee;
+    padding: 10px;
+    overflow-y: scroll;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    background-color: #e9e9e9;
+    flex-grow: 1; /* Allows messages to take available space */
+}
+
+.logout-button {
+    margin-top: auto; /* Pushes the button to the bottom */
+    width: 100%;
+    background-color: #007bff;
+    font-size: 16px;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+button:active {
+    background-color: #004085;
+}
+
+input[type='text'],
+input[type='password'] {
+    width: calc(100% - 22px); /* Adjust for padding and border */
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.password-container {
+    position: relative;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.password-container input {
+    width: calc(100% - 40px); /* Adjust for eye icon */
+    padding-right: 29px; /* Space for the eye icon */
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 40%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #555;
+}
+
+.error {
+    color: red;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+}
+
+.toggle-form {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.toggle-form a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.toggle-form a:hover {
+    text-decoration: underline;
+}
+
+.message {
+    padding: 8px 12px;
+    border-radius: 15px;
+    margin-bottom: 8px;
+    max-width: 70%;
+    word-wrap: break-word;
+}
+
+.message.self {
+    background-color: #dcf8c6;
+    align-self: flex-end;
+    margin-left: auto;
+}
+
+.message.other {
+    background-color: #e0e0e0;
+    align-self: flex-start;
+    margin-right: auto;
+}
+
+#messages {
+    display: flex;
+    flex-direction: column;
+}
+
+#typing-status {
+    font-style: italic;
+    color: #888;
+    margin-top: 5px;
+    height: 20px; /* Reserve space to prevent layout shifts */
+}
+
+#edit-profile-button {
+    background-color: #ff8c00; /* Orange */
+    margin-top: 10px;
+}
+
+#edit-profile-button:hover {
+    background-color: #cc7000; /* Darker orange on hover */
+}
+
+#logout-button {
+    background-color: #dc3545; /* Red */
+    margin-top: 10px;
+}
+
+#logout-button:hover {
+    background-color: #c82333; /* Darker red on hover */
+}
+
+/* Modal Styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-content h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.modal-content input[type='text'],
+.modal-content input[type='date'],
+.modal-content select {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.modal-content button {
+    margin-top: 15px;
+}

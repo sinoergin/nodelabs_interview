@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Real-time Chat</title>
+        <link rel="stylesheet" href="/style.css" />
+    </head>
+    <body>
+        <div id="auth-container">
+            <div id="login-form-container">
+                <h2>Login to Chat</h2>
+                <input type="text" id="login-email" placeholder="Email" />
+                <div class="password-container">
+                    <input type="password" id="login-password" placeholder="Password" />
+                    <span class="toggle-password" id="toggle-login-password">👁️</span>
+                </div>
+                <button id="login-button">Login</button>
+                <p id="login-message" class="error"></p>
+                <p class="toggle-form">
+                    Don't have an account? <a href="#" id="show-register">Register</a>
+                </p>
+            </div>
+
+            <div id="register-form-container" style="display: none">
+                <h2>Register</h2>
+                <input type="text" id="register-username" placeholder="Username" />
+                <input type="text" id="register-email" placeholder="Email" />
+                <div class="password-container">
+                    <input type="password" id="register-password" placeholder="Password" />
+                    <span class="toggle-password" id="toggle-register-password">👁️</span>
+                </div>
+                <button id="register-button">Register</button>
+                <p id="register-message" class="error"></p>
+                <p class="toggle-form">
+                    Already have an account? <a href="#" id="show-login">Login</a>
+                </p>
+            </div>
+        </div>
+
+        <div id="chat-container" style="display: none">
+            <div id="chat-header">
+                <h2>Chat</h2>
+                <div>
+                    <button id="edit-profile-button">Edit Profile</button>
+                    <button id="logout-button">Logout</button>
+                </div>
+            </div>
+
+            <div id="chat-main">
+                <div id="conversations-sidebar">
+                    <h3>Conversations</h3>
+                    <ul id="conversations-list">
+                        <!-- Conversations will be loaded here -->
+                    </ul>
+                </div>
+                <div id="chat-main-content">
+                    <div id="conversation-search">
+                        <p id="conversation-status">Find a partner to start chatting.</p>
+                    </div>
+                    <div id="find-conversation-buttons">
+                        <button id="find-conversation-btn">Find Conversation</button>
+                        <button id="cancel-find-conversation-btn" style="display: none">
+                            Cancel
+                        </button>
+                    </div>
+
+                    <div id="conversation-area" style="display: none">
+                        <div id="conversation-area-header">
+                            <button id="back-to-conversations-btn">Back</button>
+                            <h3 id="current-conversation-partner"></h3>
+                        </div>
+                        <div id="messages"></div>
+                        <div id="typing-status"></div>
+                        <div id="message-input-container">
+                            <input
+                                type="text"
+                                id="message-input"
+                                placeholder="Type your message..."
+                            />
+                            <button id="send-button">Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="profile-modal" class="modal" style="display: none">
+            <div class="modal-content">
+                <span class="close-button" id="close-profile-modal">&times;</span>
+                <h2>Edit Profile</h2>
+                <input type="text" id="profile-username" placeholder="Username" />
+                <input type="text" id="profile-name" placeholder="Name" />
+                <input type="text" id="profile-surname" placeholder="Surname" />
+                <select id="profile-gender">
+                    <option value="">Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+                <input type="date" id="profile-birthdate" />
+                <button id="save-profile-button">Save Profile</button>
+                <p id="profile-message" class="error"></p>
+            </div>
+        </div>
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/app.js"></script>
+    </body>
+</html>
