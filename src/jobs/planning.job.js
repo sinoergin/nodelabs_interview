@@ -1,46 +1,35 @@
 import cron from 'node-cron';
-import userRepository from '../modules/user/user.repository.js';
-import conversationRepository from '../modules/conversation/conversation.repository.js';
-import autoMessageRepository from '../modules/autoMessage/autoMessage.repository.js';
+import conversationService from '../modules/conversation/conversation.service.js';
+import { redisClient } from '../common/config/redis.js';
+import logger from '../common/config/logger.js';
 
-// Planning Job (Cron Job - Every day at 02:00 AM)
-// This job matches active users and creates conversations with automated messages.
-// It runs every day at 02:00 AM.
+/**
+ * This job runs daily at 2 AM to pair users and create conversations.
+ * It publishes a notification to Redis when a new conversation is created.
+ */
 const planningJob = cron.schedule('0 2 * * *', async () => {
-  console.log('Running planning job at 02:00 AM');
-  try {
-    const users = await userRepository.findAllUsers();
-    if (users.length < 2) {
-      console.log('Not enough users to create a conversation.');
-      return;
+    logger.info('Running user pairing job.');
+    try {
+        const conversation = await conversationService.pairUsersAndCreateConversation();
+
+        if (conversation) {
+            logger.info(
+                `Conversation created: ${conversation._id} for users ${conversation.participants.join(' and ')}`,
+            );
+
+            const notification = {
+                type: 'NEW_CONVERSATION',
+                payload: {
+                    conversationId: conversation._id.toString(),
+                    participants: conversation.participants.map((p) => p.toString()),
+                },
+            };
+
+            await redisClient.publish('socket_notifications', JSON.stringify(notification));
+        }
+    } catch (error) {
+        logger.error('Error during user pairing job:', error);
     }
-
-    const shuffledUsers = users.sort(() => 0.5 - Math.random());
-
-    for (let i = 0; i < shuffledUsers.length - 1; i += 2) {
-      const sender = shuffledUsers[i];
-      const receiver = shuffledUsers[i + 1];
-
-      let conversation = await conversationRepository.findConversationByParticipants([sender._id, receiver._id]);
-      if (!conversation) {
-        conversation = await conversationRepository.createConversation([sender._id, receiver._id]);
-      }
-
-      const message = `Hello ${receiver.username}, this is an automated message from ${sender.username}.`;
-      const sendDate = new Date(Date.now() + Math.random() * 60000); // Send within a minute
-
-      await autoMessageRepository.createAutoMessage({
-        conversationId: conversation._id,
-        sender: sender._id,
-        receiver: receiver._id,
-        message,
-        sendDate,
-      });
-    }
-    console.log('Planning job finished.');
-  } catch (error) {
-    console.error('Error running planning job:', error);
-  }
 });
 
 export default planningJob;

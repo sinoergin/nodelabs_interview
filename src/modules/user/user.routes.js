@@ -2,7 +2,12 @@ import express from 'express';
 import userController from './user.controller.js';
 import authMiddleware from '../../common/middlewares/auth.middleware.js';
 import validate from '../../common/middlewares/validate.middleware.js';
-import { registerSchema, loginSchema, refreshTokenSchema } from '../../common/validation/user.validation.js';
+import {
+    registerSchema,
+    loginSchema,
+    refreshTokenSchema,
+    updateProfileSchema,
+} from '../../common/validation/user.validation.js';
 
 const router = express.Router();
 
@@ -13,5 +18,11 @@ router.post('/auth/logout', authMiddleware, userController.logout);
 router.get('/auth/me', authMiddleware, userController.getMe);
 router.get('/user/list', authMiddleware, userController.listUsers);
 router.get('/user/online-users', authMiddleware, userController.getOnlineUsers);
+router.put(
+    '/user/profile',
+    authMiddleware,
+    validate(updateProfileSchema),
+    userController.updateProfile,
+);
 
 export default router;

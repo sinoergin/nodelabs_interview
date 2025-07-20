@@ -1,15 +1,20 @@
 import { createClient } from 'redis';
 import config from './index.js';
+import logger from './logger.js';
 
 const redisClient = createClient({
-  url: `redis://${config.redis.host}:${config.redis.port}`,
+    host: config.redis.host,
+    port: config.redis.port,
 });
 
-redisClient.on('error', (err) => console.log('Redis Client Error', err));
+const subscriber = redisClient.duplicate();
+
+redisClient.on('error', (err) => logger.error('Redis Client Error', err));
+subscriber.on('error', (err) => logger.error('Redis Subscriber Error', err));
 
 const connectRedis = async () => {
-  await redisClient.connect();
-  console.log('Redis connected');
+    await Promise.all([redisClient.connect(), subscriber.connect()]);
+    logger.info('Redis connected (client and subscriber)');
 };
 
-export { redisClient, connectRedis };
+export { redisClient, subscriber, connectRedis };
